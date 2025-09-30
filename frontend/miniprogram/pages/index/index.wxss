@@ -1,0 +1,96 @@
+/* pages/index/index.wxss */
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60rpx 40rpx;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 80rpx;
+}
+
+.logo {
+  width: 120rpx;
+  height: 120rpx;
+  margin-bottom: 20rpx;
+}
+
+.app-title {
+  display: block;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 600rpx;
+}
+
+.btn-large {
+  margin: 30rpx 0;
+  border-radius: 50rpx;
+  box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.2);
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, #3cc51f, #2ed573);
+}
+
+.btn-secondary {
+  background: white;
+  color: #333;
+}
+
+.quick-actions {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 600rpx;
+  margin-top: 60rpx;
+}
+
+.action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20rpx;
+  backdrop-filter: blur(10rpx);
+  min-width: 120rpx;
+}
+
+.action-icon {
+  width: 60rpx;
+  height: 60rpx;
+  margin-bottom: 10rpx;
+}
+
+.action-text {
+  color: white;
+  font-size: 24rpx;
+  text-align: center;
+}
+
+.user-section {
+  margin-top: 40rpx;
+  text-align: center;
+}
+
+.user-info {
+  color: white;
+  font-size: 28rpx;
+  opacity: 0.8;
+}

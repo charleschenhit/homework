@@ -1,0 +1,76 @@
+<!--pages/chat/chat.wxml-->
+<view class="chat-container">
+  <!-- 顶部标题栏 -->
+  <view class="chat-header">
+    <view class="header-left" bindtap="goBack">
+      <image class="back-icon" src="/images/back.png"></image>
+    </view>
+    <view class="header-center">
+      <text class="header-title">智能问答</text>
+      <text class="header-subtitle">{{problemTitle}}</text>
+    </view>
+    <view class="header-right"></view>
+  </view>
+
+  <!-- 消息列表 -->
+  <scroll-view class="message-list" scroll-y="true" scroll-top="{{scrollTop}}" scroll-into-view="{{scrollIntoView}}">
+    <view class="message-item {{item.type}}" wx:for="{{messages}}" wx:key="id" id="msg-{{item.id}}">
+      <!-- 用户消息 -->
+      <view class="message-content user-message" wx:if="{{item.type === 'user'}}">
+        <view class="message-bubble user-bubble">
+          <text class="message-text">{{item.content}}</text>
+        </view>
+        <view class="message-time">{{formatTime(item.timestamp)}}</view>
+      </view>
+
+      <!-- AI消息 -->
+      <view class="message-content ai-message" wx:else>
+        <view class="message-bubble ai-bubble">
+          <text class="message-text">{{item.content}}</text>
+          <!-- 语音播放按钮 -->
+          <view class="audio-control" wx:if="{{item.audioUrl}}" bindtap="playAudio" data-message-id="{{item.id}}" data-audio-url="{{item.audioUrl}}">
+            <image class="audio-icon" src="/images/{{isPlaying && playingMessageId === item.id ? 'pause' : 'play'}}.png"></image>
+            <text class="audio-text">{{isPlaying && playingMessageId === item.id ? '播放中' : '播放语音'}}</text>
+          </view>
+        </view>
+        <view class="message-time">{{formatTime(item.timestamp)}}</view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 输入区域 -->
+  <view class="input-area">
+    <!-- 语音输入按钮 -->
+    <view class="voice-btn {{isRecording ? 'recording' : ''}}" 
+          bindtouchstart="startRecord" 
+          bindtouchend="stopRecord"
+          bindtouchcancel="stopRecord">
+      <image class="voice-icon" src="/images/{{isRecording ? 'recording' : 'voice'}}.png"></image>
+    </view>
+
+    <!-- 文本输入框 -->
+    <view class="text-input-wrapper">
+      <input class="text-input" 
+             placeholder="输入问题..." 
+             value="{{inputText}}"
+             bindinput="onInputChange"
+             confirm-type="send"
+             bindconfirm="sendTextMessage" />
+    </view>
+
+    <!-- 发送按钮 -->
+    <view class="send-btn {{inputText ? 'active' : ''}}" bindtap="sendTextMessage">
+      <image class="send-icon" src="/images/send.png"></image>
+    </view>
+  </view>
+
+  <!-- 录音提示 -->
+  <view class="recording-tip {{isRecording ? 'show' : ''}}">
+    <view class="recording-animation">
+      <view class="wave wave1"></view>
+      <view class="wave wave2"></view>
+      <view class="wave wave3"></view>
+    </view>
+    <text class="recording-text">正在录音，松开结束</text>
+  </view>
+</view>

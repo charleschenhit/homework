@@ -1,0 +1,71 @@
+<!--pages/profile/profile.wxml-->
+<view class="container">
+  <!-- 用户信息区域 -->
+  <view class="user-section">
+    <view class="user-avatar" wx:if="{{userInfo}}" bindtap="getUserProfile">
+      <image class="avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
+    </view>
+    <view class="user-avatar default" wx:else bindtap="getUserProfile">
+      <image class="avatar" src="/images/default-avatar.png" mode="aspectFill"></image>
+    </view>
+    
+    <view class="user-info">
+      <text class="user-name" wx:if="{{userInfo}}">{{userInfo.nickName}}</text>
+      <text class="user-name" wx:else>点击获取用户信息</text>
+      <text class="user-desc">智能作业辅导用户</text>
+    </view>
+  </view>
+
+  <!-- 学习统计 -->
+  <view class="stats-section" wx:if="{{userStats}}">
+    <view class="stats-grid">
+      <view class="stat-item">
+        <text class="stat-number">{{userStats.totalProblems}}</text>
+        <text class="stat-label">累计做题</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-number">{{userStats.totalMistakes}}</text>
+        <text class="stat-label">错题收集</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-number">{{userStats.streakDays}}</text>
+        <text class="stat-label">连续学习</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-number">{{formatTime(userStats.studyTime)}}</text>
+        <text class="stat-label">学习时长</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-section">
+    <view class="menu-item" 
+          wx:for="{{menuItems}}" 
+          wx:key="title"
+          bindtap="onMenuItemTap"
+          data-action="{{item.action}}">
+      <view class="menu-icon">
+        <image class="icon" src="{{item.icon}}"></image>
+      </view>
+      <view class="menu-content">
+        <text class="menu-title">{{item.title}}</text>
+        <text class="menu-subtitle">{{item.subtitle}}</text>
+      </view>
+      <view class="menu-arrow">
+        <image class="arrow" src="/images/arrow-right.png"></image>
+      </view>
+    </view>
+  </view>
+
+  <!-- 退出登录 -->
+  <view class="logout-section">
+    <button class="logout-btn" bindtap="logout">退出登录</button>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-overlay" wx:if="{{loading}}">
+    <image class="loading-icon" src="/images/loading.gif"></image>
+    <text class="loading-text">加载中...</text>
+  </view>
+</view>

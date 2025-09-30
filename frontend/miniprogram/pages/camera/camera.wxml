@@ -1,0 +1,54 @@
+<!--pages/camera/camera.wxml-->
+<view class="camera-container">
+  <!-- 顶部导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-left" bindtap="goBack">
+      <image class="nav-icon" src="/images/back.png"></image>
+    </view>
+    <text class="nav-title">拍照搜题</text>
+    <view class="nav-right">
+      <image class="nav-icon" src="/images/switch.png" bindtap="switchCamera"></image>
+    </view>
+  </view>
+
+  <!-- 相机区域 -->
+  <view class="camera-wrapper">
+    <camera 
+      class="camera"
+      device-position="{{devicePosition}}"
+      flash="{{flashMode}}"
+      binderror="error"
+    >
+      <!-- 取景框 -->
+      <view class="viewfinder">
+        <view class="viewfinder-frame">
+          <view class="corner top-left"></view>
+          <view class="corner top-right"></view>
+          <view class="corner bottom-left"></view>
+          <view class="corner bottom-right"></view>
+        </view>
+        <text class="viewfinder-tip">请将题目放在取景框内</text>
+      </view>
+    </camera>
+  </view>
+
+  <!-- 底部控制栏 -->
+  <view class="control-bar">
+    <!-- 相册按钮 -->
+    <view class="control-btn" bindtap="chooseFromAlbum">
+      <image class="control-icon" src="/images/album.png"></image>
+      <text class="control-text">相册</text>
+    </view>
+
+    <!-- 拍照按钮 -->
+    <view class="capture-btn {{isTakingPhoto ? 'capturing' : ''}}" bindtap="takePhoto">
+      <view class="capture-inner"></view>
+    </view>
+
+    <!-- 闪光灯按钮 -->
+    <view class="control-btn" bindtap="toggleFlash">
+      <image class="control-icon" src="/images/flash-{{flashMode}}.png"></image>
+      <text class="control-text">闪光灯</text>
+    </view>
+  </view>
+</view>

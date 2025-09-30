@@ -1,0 +1,87 @@
+<!--pages/mistake-book/mistake-book.wxml-->
+<view class="container">
+  <!-- 学科标签栏 -->
+  <view class="tab-bar">
+    <scroll-view class="tab-scroll" scroll-x="true">
+      <view class="tab-list">
+        <view class="tab-item {{activeTab === item ? 'active' : ''}}" 
+              wx:for="{{subjects}}" 
+              wx:key="index"
+              bindtap="switchTab"
+              data-subject="{{item}}">
+          <image class="tab-icon" src="{{getSubjectIcon(item)}}"></image>
+          <text class="tab-text">{{item}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 统计信息 -->
+  <view class="stats-section">
+    <view class="stats-item">
+      <text class="stats-number">{{problems.length}}</text>
+      <text class="stats-label">错题总数</text>
+    </view>
+    <view class="stats-item">
+      <text class="stats-number">{{problems.filter(p => p.reviewCount > 0).length}}</text>
+      <text class="stats-label">已复习</text>
+    </view>
+    <view class="stats-item">
+      <button class="btn-primary" bindtap="batchReview">批量复习</button>
+    </view>
+  </view>
+
+  <!-- 错题列表 -->
+  <view class="problems-list">
+    <view class="problem-item card" 
+          wx:for="{{problems}}" 
+          wx:key="id"
+          bindtap="viewProblem"
+          data-problem-id="{{item.problemId}}">
+      
+      <!-- 题目图片 -->
+      <view class="problem-image">
+        <image class="image" src="{{item.imageUrl}}" mode="aspectFit"></image>
+        <view class="subject-badge">{{item.subject}}</view>
+      </view>
+
+      <!-- 题目信息 -->
+      <view class="problem-info">
+        <view class="problem-title">{{item.title}}</view>
+        <view class="problem-meta">
+          <text class="meta-item">添加时间：{{formatTime(item.addedAt)}}</text>
+          <text class="meta-item" wx:if="{{item.reviewCount > 0}}">复习次数：{{item.reviewCount}}</text>
+        </view>
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="problem-actions">
+        <button class="action-btn delete-btn" 
+                bindtap="deleteProblem"
+                data-problem-id="{{item.id}}"
+                data-index="{{index}}"
+                catchtap="true">
+          <image class="btn-icon" src="/images/delete.png"></image>
+        </button>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{problems.length === 0 && !loading}}">
+      <image class="empty-icon" src="/images/empty.png"></image>
+      <text class="empty-text">暂无错题</text>
+      <text class="empty-desc">快去拍照搜题，收集错题吧！</text>
+    </view>
+
+    <!-- 加载状态 -->
+    <view class="loading-state" wx:if="{{loading}}">
+      <image class="loading-icon" src="/images/loading.gif"></image>
+      <text class="loading-text">加载中...</text>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="load-more" wx:if="{{!hasMore && problems.length > 0}}">
+      <text class="load-more-text">没有更多了</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,44 @@
+<!--pages/index/index.wxml-->
+<view class="container">
+  <!-- 顶部Logo区域 -->
+  <view class="header">
+    <image class="logo" src="/images/logo.png" mode="aspectFit"></image>
+    <text class="app-title">智能作业辅导</text>
+  </view>
+
+  <!-- 主要功能区域 -->
+  <view class="main-content">
+    <!-- 拍照搜题按钮 -->
+    <button class="btn-primary btn-large" bindtap="takePhoto">
+      📷 拍照搜题
+    </button>
+    
+    <!-- 上传题目按钮 -->
+    <button class="btn-secondary btn-large" bindtap="uploadImage">
+      📁 上传题目
+    </button>
+  </view>
+
+  <!-- 底部快捷入口 -->
+  <view class="quick-actions">
+    <view class="action-item" bindtap="goToMistakeBook">
+      <image class="action-icon" src="/images/mistake.png"></image>
+      <text class="action-text">我的错题本</text>
+    </view>
+    
+    <view class="action-item" bindtap="goToProfile">
+      <image class="action-icon" src="/images/profile.png"></image>
+      <text class="action-text">个人中心</text>
+    </view>
+  </view>
+
+  <!-- 用户信息区域（未登录时显示） -->
+  <view class="user-section" wx:if="{{!hasUserInfo}}">
+    <button wx:if="{{canIUseGetUserProfile}}" class="btn-primary" bindtap="getUserProfile">
+      获取用户信息
+    </button>
+    <view wx:else class="user-info">
+      <text>请使用 1.4.4 或更高版本基础库</text>
+    </view>
+  </view>
+</view>
